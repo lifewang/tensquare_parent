@@ -7,6 +7,8 @@ import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,7 +85,8 @@ public class LabelController {
      */
     @RequestMapping(value = "/search",method = RequestMethod.POST)
     public Result findSearch(@RequestBody Label label){
-        List<Label> list = labelService.findSearch(label);
+        Specification<Label> specification = labelService.createSpecification(label);
+        List<Label> list = labelService.findSearch(specification);
         return new Result(true, StatusCode.OK,"查询成功",list);
     }
 
@@ -93,7 +96,9 @@ public class LabelController {
      */
     @RequestMapping(value = "/search/{page}/{size}",method = RequestMethod.POST)
     public Result pageQuery(@RequestBody Label label,@PathVariable int page,@PathVariable int size){
-        Page<Label> pageData = labelService.pageQuery(label,page,size);
+        Specification<Label> specification = labelService.createSpecification(label);
+        PageRequest pageRequest = PageRequest.of(page-1,size);
+        Page<Label> pageData = labelService.pageQuery(specification,pageRequest);
         return new Result(true, StatusCode.OK,"查询成功",new PageResult<Label>(pageData.getTotalElements(),pageData.getContent()));
     }
 

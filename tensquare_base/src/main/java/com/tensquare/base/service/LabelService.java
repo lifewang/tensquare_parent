@@ -6,7 +6,6 @@ import com.tensquare.base.pojo.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import util.IdWorker;
@@ -72,11 +71,10 @@ public class LabelService {
     }
 
     /**
-     * 条件查询
-     * @return
+     * 查询方法抽取
      */
-    public List<Label> findSearch(Label label) {
-        return labelDao.findAll(new Specification<Label>() {
+    public Specification<Label> createSpecification(Label label){
+        return new Specification<Label>() {
             /**
              * @param root 根对象，用来封装条件
              * @param query  封装查询的关键字 如：group by ，order by等
@@ -99,7 +97,15 @@ public class LabelService {
                 prr = list.toArray(prr);
                 return cb.and(prr);
             }
-        });
+        };
+    }
+
+    /**
+     * 条件查询
+     * @return
+     */
+    public List<Label> findSearch(Specification<Label> specification) {
+        return labelDao.findAll(specification);
     }
 
     /**
@@ -109,25 +115,7 @@ public class LabelService {
      * @param size
      * @return
      */
-    public Page<Label> pageQuery(Label label, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1,size);
-        return labelDao.findAll(new Specification<Label>() {
-            @Override
-            public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                //new 一个集合，存放所有条件
-                List<Predicate> list = new ArrayList<>();
-                if(label.getLabelname() != null && !"".equals(label.getLabelname())){
-                    Predicate labelname = cb.like(root.get("labelname").as(String.class), "%" + label.getLabelname() + "%");//where labelname like "%哈%"
-                    list.add(labelname);
-                }
-                if(label.getState() != null && !"".equals(label.getState())){
-                    Predicate state = cb.like(root.get("state").as(String.class), label.getState());//where state = "1"
-                    list.add(state);
-                }
-                Predicate[] prr = new Predicate[list.size()];
-                prr = list.toArray(prr);
-                return cb.and(prr);
-            }
-        },pageable);
+    public Page<Label> pageQuery(Specification<Label> specification,PageRequest pageRequest) {
+        return labelDao.findAll(specification,pageRequest);
     }
 }
