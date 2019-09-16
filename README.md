@@ -7,4 +7,10 @@
       2、idea2019
       3、git
       4、Navicat Premium
+#### SpringData查询和分页
+      1、利用Specification接口实现复杂查询。
+      2、Pageable实现分页。
+      3、常用查询方法：in、join、equal等。
+      4、优点：不需要写映射，少写方法和对应字段。
+      5、缺点：SpringData主张表和对象的关系映射，但实际业务错综复杂，需要编写复杂的SQL解决，这方面没有mybatis好用。
       
