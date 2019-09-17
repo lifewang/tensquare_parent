@@ -13,4 +13,5 @@
       3、常用查询方法：in、join、equal等。
       4、优点：不需要写映射，少写方法和对应字段。
       5、缺点：SpringData主张表和对象的关系映射，但实际业务错综复杂，需要编写复杂的SQL解决，这方面没有mybatis好用。
+      6、SpringDataJPA命名规则生成SQL语句。
       
