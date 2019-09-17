@@ -1,21 +1,17 @@
 package com.tensquare.recruit.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +34,22 @@ public class RecruitService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	/**
+	 * 推荐职位
+	 * @return
+	 */
+	public List<Recruit> recommend() {
+		return recruitDao.findByState("2");
+	}
+
+	/**
+	 * 最新职位
+	 * @return
+	 */
+	public List<Recruit> newlist() {
+		return recruitDao.findByStateNot("0");
+	}
 
 	/**
 	 * 查询全部列表

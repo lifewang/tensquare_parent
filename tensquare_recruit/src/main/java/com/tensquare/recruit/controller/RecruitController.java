@@ -1,5 +1,4 @@
 package com.tensquare.recruit.controller;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,24 @@ public class RecruitController {
 
 	@Autowired
 	private RecruitService recruitService;
-	
-	
+
+	/**
+	 * 推荐职位
+	 * @return
+	 */
+	@RequestMapping(value = "/search/recommend",method = RequestMethod.GET)
+	public Result recommend(){
+		return new Result(true,StatusCode.OK,"查询成功",recruitService.recommend());
+	}
+
+	/**
+	 * 最新职位
+	 * @return
+	 */
+	@RequestMapping(value = "/search/newlist",method = RequestMethod.GET)
+	public Result newlist(){
+		return new Result(true,StatusCode.OK,"查询成功",recruitService.newlist());
+	}
 	/**
 	 * 查询全部数据
 	 * @return
