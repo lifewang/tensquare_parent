@@ -26,6 +26,9 @@
                   host: 127.0.0.1
       3、在service层注入RedisTemplate类，然后通过其中的方法获取缓存中的信息，或者将信息存入缓存中。
       4、修改、删除数据时，将缓存中对应的数据删除；只有查询时才缓存中没有的数据存入缓存（查询：将对应数据存如redis；修改和删除：将缓存中对应数据删除）。
-      5、设置过期时间：第一次将数据存入redis时，设置：redisTemplate.opsForValue().set(key,对象信息,时间, TimeUnit(时间单位函数));
+      5、设置过期时间：第一次将数据存入redis时，设置：redisTemplate.opsForValue().set(key,对象信息,时间, TimeUnit(时间单位函数))。
 #### SpringBoot缓存
-      1、在启动类添加@EnableCaching注解
+      1、在启动类添加@EnableCaching注解。
+      2、在查询方法上写@Cacheable注解表示添加缓存。
+      3、在修改和删除方法上写@CacheEvict注解表示删除缓存。
+      4、实际上是将查到的数据存入到了java虚拟机中，缺点：不能设置过期时间。
