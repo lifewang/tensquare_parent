@@ -15,4 +15,14 @@
       5、缺点：SpringData主张表和对象的关系映射，但实际业务错综复杂，需要编写复杂的SQL解决，这方面没有mybatis好用。
       6、SpringDataJPA命名规则生成SQL语句。
       7、SpringDataJPA适合单表，MyBatis适合多表。
+#### Redis(微服务使用缓存)
+      1、添加jar包(pom.xml)
+            <dependency>
+		  	<groupId>org.springframework.boot</groupId>
+		  	<artifactId>spring-boot-starter-data-redis</artifactId>
+	  	</dependency>
+      2、修改配置文件(application.yml)
+              redis:
+                  host: 127.0.0.1:3306
+      3、在service层注入RedisTemplate类，然后通过其中的方法获取缓存中的信息，或者将信息存入缓存中。
       
