@@ -46,3 +46,5 @@
       站内搜索elasticsearch实现
       ik分词器
       logstash定时任务执行同步索引库
+#### RabbitMQ
+      进入rabbitmq的sbin目录，执行命令rabbitmq-plugins enable rabbitmq_management启动
