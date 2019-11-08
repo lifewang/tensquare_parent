@@ -1,0 +1,23 @@
+一、启动elasticsearch
+    cmd进入elasticsearch的bin目录，执行elasticsearch命令  9200
+二、启动elasticsearch-head
+    1、安装全局：npm install -g grunt-cli
+    2、在elasticsearch-head安装目录下，执行npm install -g cnpm --registry=https://registry.npm.taobao.org命令
+    3、然后在elasticsearch-head安装目录下，执行cnpm install
+    4、最后，启动grunt server命令  9100
+三、将elasticsearch与elasticsearch-head连接（跨域问题？）
+    1、修改elasticsearch配置文件：elasticsearch.yml，添加下面两行
+        http.cors.enabled: true
+        http.cors.allow-origin: "*"
+    2、重启elasticsearch
+四、IK分词器
+五、实现elasticsearch与数据库同步
+    1、安装logstash
+    2、启动，进入logstash的bin目录下执行logstash -e 'input {stdin{}} output{stdout{}}'命令
+    3、同步mysql数据到elasticsearch
+        在elasticsearch中添加mysql驱动和mysql配置文件（添加数据库配置，指定elasticsearch的IP,端口，索引及类型）
+        在logstash的bin目录下执行logstash -f ../mysqletc/mysql.conf命令
+    4、logstash特点
+        数据库数据不要物理删除，仅修改其状态，否者索引库中的数据会出现错误数据
+
+
