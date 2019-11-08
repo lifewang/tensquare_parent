@@ -44,3 +44,5 @@
 #### elasticsearch
       搜索引擎：百度、谷歌
       站内搜索elasticsearch实现
+      ik分词器
+      logstash定时任务执行同步索引库
