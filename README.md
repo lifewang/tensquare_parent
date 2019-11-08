@@ -41,3 +41,6 @@
       1、概念：是一个跨平台、面向文档的数据库，json格式，可存储比较复杂的数据结构。
       2、何处使用：数据量大、写入操作频繁或者价值较低。
       3、MongoDB的安装及使用https://www.runoob.com/mongodb/mongodb-window-install.html
+#### elasticsearch
+      搜索引擎：百度、谷歌
+      站内搜索elasticsearch实现
