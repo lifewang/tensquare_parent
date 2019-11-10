@@ -14,8 +14,25 @@ public class ProductTest {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    /**
+     * 直接模式
+     */
     @Test
-    public void sendMsg(){
+    public void sendMsg1(){
         rabbitTemplate.convertAndSend("itcast","直接模式测试");
+    }
+    /**
+     * 分裂模式
+     */
+    @Test
+    public void sendMsg2(){
+        rabbitTemplate.convertAndSend("chuanzhi","","分裂模式测试");
+    }
+    /**
+     * 主题模式
+     */
+    @Test
+    public void sendMsg3(){
+        rabbitTemplate.convertAndSend("topic84","good.log","主题模式测试");
     }
 }
