@@ -29,7 +29,18 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
+	/**
+	 * 登录
+	 */
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
+	public Result login(@RequestBody Admin admin){
+		Admin adminLogin = adminService.login(admin);
+		if(adminLogin==null){
+			return new Result(false,StatusCode.LOGINERROR,"登录失败");
+		}
+		return new Result(true,StatusCode.OK,"登录成功");
+	}
 	
 	/**
 	 * 查询全部数据
