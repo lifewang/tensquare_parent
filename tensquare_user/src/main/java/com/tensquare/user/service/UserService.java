@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.util.StringUtils;
@@ -55,6 +56,9 @@ public class UserService {
 
 	@Autowired
 	private JwtUtil jwtUtil;
+
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	/**
 	 * 查询全部列表
@@ -200,4 +204,14 @@ public class UserService {
 		//在控制台显示一份(方便测试)
 		System.out.println("验证码为："+String.valueOf(checkcode));
     }
+
+	public User login(String mobile, String password) {
+		//根据登录名查询账户信息
+		User userLogin = userDao.findUserByMobile(mobile);
+		//判断账户是否存在，比较输入密码与数据库密码是否一致
+		if(userLogin!=null && encoder.matches(password,userLogin.getPassword())){
+			return userLogin;
+		}
+		return null;
+	}
 }
