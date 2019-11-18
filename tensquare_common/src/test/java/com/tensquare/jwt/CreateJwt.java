@@ -14,7 +14,8 @@ public class CreateJwt {
                 .setSubject("小马")
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256,"itcast")
-                .setExpiration(new Date(new Date().getTime()+60000));
+                .setExpiration(new Date(new Date().getTime()+60000))
+                .claim("role","admin");
         System.out.println(jwtBuilder.compact());
     }
 }
